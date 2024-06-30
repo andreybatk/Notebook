@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ### Notebook (React + TypeScript + Vite)
+=======
+# Notebook (React + TypeScript + Vite)
+>>>>>>> 8f61ff0f94222c04dc822ebd105cdd16acc7b504
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
