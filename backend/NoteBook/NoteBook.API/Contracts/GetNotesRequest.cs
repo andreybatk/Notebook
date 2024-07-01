@@ -1,4 +1,4 @@
-﻿namespace NoteBook.Contracts
+﻿namespace NoteBook.API.Contracts
 {
     public class GetNotesRequest
     {

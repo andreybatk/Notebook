@@ -1,0 +1,36 @@
+version: '3.9'
+networks:
+  jwtauthorization-network:
+    driver: bridge
+services:
+  postgres:
+    container_name: jwtauthorization-postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: jwtauthorization
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5433:5432
+    volumes:
+      - jwtauthorization-postgres-data:/var/lib/postgresql/data
+    networks:
+      - jwtauthorization-network
+ 
+  jwtauthorization.api:
+    container_name: jwtauthorization.api
+    image: jwtauthorization.api
+    build:
+      context: .
+      dockerfile: JwtAuthorization.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5005:80"
+      - "5006:443"
+    networks:
+      - jwtauthorization-network
+
+volumes:
+  jwtauthorization-postgres-data:

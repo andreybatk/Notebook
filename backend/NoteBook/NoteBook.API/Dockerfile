@@ -9,17 +9,18 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["NoteBook/NoteBook.csproj", "NoteBook/"]
-RUN dotnet restore "./NoteBook/NoteBook.csproj"
+COPY ["NoteBook.API/NoteBook.API.csproj", "NoteBook.API/"]
+COPY ["NoteBook.DB/NoteBook.DB.csproj", "NoteBook.DB/"]
+RUN dotnet restore "./NoteBook.API/NoteBook.API.csproj"
 COPY . .
-WORKDIR "/src/NoteBook"
-RUN dotnet build "./NoteBook.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/NoteBook.API"
+RUN dotnet build "./NoteBook.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./NoteBook.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./NoteBook.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "NoteBook.dll"]
+ENTRYPOINT ["dotnet", "NoteBook.API.dll"]

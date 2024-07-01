@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using NoteBook.Contracts;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using NoteBook.API.Contracts;
 using NoteBook.DB.Interfaces;
 
-namespace NoteBook.Controllers
+namespace NoteBook.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -16,6 +17,7 @@ namespace NoteBook.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateNoteRequest request)
         {
             await _noteRepository.Create(request.Title, request.Description);

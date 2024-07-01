@@ -1,15 +1,15 @@
-### Notebook
+### JwtAuthorization
 
 ---
 
 #### Description
 
-Web Api Service for NoteBook.
+Web Api Service for Jwt Authorization.
 
 ---
 
 #### Technologies Used
-- .NET 8
+- .NET 7
 - ASP.NET Web API
 - PostgreSQL
 - Docker
